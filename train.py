@@ -184,30 +184,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Training SRGAN with celebA")
-    parser.add_argument("--device", default="cuda", type=str)
-    parser.add_argument("--data_path", default=r"traindata", type=str)
-    parser.add_argument("--resume", default=True, type=bool)
-    parser.add_argument("--num_epochs", default=160, type=int)
-    parser.add_argument("--save_path", default=r"./qingzanglake00.pt", type=str)
-    parser.add_argument("--save_path1", default=r"./qingzanglake01.pt", type=str)
-    parser.add_argument("--interval", default=20, type=int)
-    parser.add_argument("--batch", default=16, type=int)
-    args1 = parser.parse_args()
-    main(args1)
-=")
-        print("Learning rate has adjusted to {}".format(self.lr))
-
-
-def main(args):
-    t = Trainer(args)
-    for epoch in range(t.epoch, t.epoch + args.num_epochs):
-        train_loss_d,train_loss_g, train_psnr = t.train(epoch)
-        val_loss, val_psnr = t.val(epoch)
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Training SRGAN with celebA")
+    parser = argparse.ArgumentParser(description="Training")
     parser.add_argument("--device", default="cuda", type=str)
     parser.add_argument("--data_path", default=r"traindata", type=str)
     parser.add_argument("--resume", default=True, type=bool)
