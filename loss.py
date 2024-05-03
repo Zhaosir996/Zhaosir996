@@ -81,57 +81,18 @@ def compute_gradient(inputs):
 class ReconstructionLoss(nn.Module):
     def __init__(self):
         super().__init__()
-
-
-
     def forward(self, prediction, target):
-        # sobel_loss = F.mse_loss(compute_gradient(prediction), compute_gradient(target))
-        # spectral_loss = 1.0-torch.mean(F.cosine_similarity(prediction, target, 1))
+
         vision_loss = 1.0 - msssim(prediction, target,normalize=True)
         loss =  vision_loss
         return loss
 
 if __name__ == '__main__':
-    # # c = ContentLoss()
-    # f1 = torch.rand([1, 3, 64, 64])
-    # r1 = torch.rand([1, 3, 64, 64])
-    # # print(c(f1, r1))
-    # # ad = AdversarialLoss()
-    # i = torch.rand([1, 2, 1, 1])
-    # # print(ad(i))
-    # p = PerceptualLoss()
-    # print(p(f1, r1, i))
+
     img = torch.rand([1, 3, 64, 64])
     r = ReconstructionLoss()
     print(r(img,img))
 
-
-
-
-
-
-
-
-
-
-.mean(F.cosine_similarity(prediction, target, 1))
-        vision_loss = 1.0 - msssim(prediction, target,normalize=True)
-        loss =  vision_loss
-        return loss
-
-if __name__ == '__main__':
-    # # c = ContentLoss()
-    # f1 = torch.rand([1, 3, 64, 64])
-    # r1 = torch.rand([1, 3, 64, 64])
-    # # print(c(f1, r1))
-    # # ad = AdversarialLoss()
-    # i = torch.rand([1, 2, 1, 1])
-    # # print(ad(i))
-    # p = PerceptualLoss()
-    # print(p(f1, r1, i))
-    img = torch.rand([1, 3, 64, 64])
-    r = ReconstructionLoss()
-    print(r(img,img))
 
 
 
