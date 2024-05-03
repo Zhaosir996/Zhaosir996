@@ -12,7 +12,7 @@ def transform_image(image):
     image = image.astype(np.float32)
     image = torch.from_numpy(image.copy())
     image = image/10000
-    return image, image_mask
+    return image
 
 class SRSFGANDataset(Dataset):
     def __init__(self, root, mode="train"):
@@ -27,12 +27,6 @@ class SRSFGANDataset(Dataset):
     def __len__(self):
         assert len(self.lt0)==len(self.lt1)
         return len(self.lt1)
-
-    @staticmethod
-    def transform(data):
-        data[data < 0] = 0
-        out = data.mul_(0.0001)
-        return out
 
     def __getitem__(self, index):
         lt0,_,_,_ = read_image(self.lt0[index])
