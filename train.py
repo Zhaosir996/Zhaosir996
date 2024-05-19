@@ -169,15 +169,15 @@ class Trainer:
                 ))
                 if mpsnr > self.best_psnr:
                     self.best_psnr = mpsnr
-                print("Save params to {}".format(self.args.save_path))
-                param_dict = {
-                "epoch": epoch,
-                "lr": self.lr,
-                "best_psnr": self.best_psnr,
-                "gnet_dict": self.gnet.state_dict(),
-                "dnet_dict": self.dnet.state_dict()
-            }
-            torch.save(param_dict, self.args.save_path1)
+                    print("Save params to {}".format(self.args.save_path))
+                    param_dict = {
+                        "epoch": epoch,
+                        "lr": self.lr,
+                        "best_psnr": self.best_psnr,
+                        "gnet_dict": self.gnet.state_dict(),
+                        "dnet_dict": self.dnet.state_dict()
+                    }
+                    torch.save(param_dict, self.args.save_path1)
             print(ssim(fake_img, label))
             return val_loss / len(self.val_loader), mpsnr
 
