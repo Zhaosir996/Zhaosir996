@@ -37,7 +37,7 @@ class SRSFGANDataset(Dataset):
 
         for i in range(len(images)):
             im = images[i]
-            im, _ = transform_image(im)
+            im = transform_image(im)
             patches[i] = im
         # gt_mask = masks[0] * masks[1] * masks[2] * masks[3]
 
