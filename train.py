@@ -15,6 +15,7 @@ from collections import OrderedDict
 class Trainer:
     def __init__(self, args):
         self.args = args
+        print(self.args)
         self.device = self.args.device
         self.multi_gpu = torch.cuda.device_count() > 1  # Check if multiple GPUs are available
         self.gnet = models.Generator()
@@ -23,7 +24,7 @@ class Trainer:
         self.train_loader = DataLoader(dataset.SRSFGANDataset(root=self.args.data_path, mode="train"),
                                        batch_size=batch, shuffle=True, drop_last=True)
         self.val_loader = DataLoader(dataset.SRSFGANDataset(root=self.args.data_path, mode="val"),
-                                     batch_size=1, shuffle=False, drop_last=True)
+                                     batch_size=batch, shuffle=False, drop_last=True)
         self.ContentLoss = loss.ReconstructionLoss()
         self.AdversarialLoss = loss.AdversarialLoss()
         self.Perceptualloss = loss.ContentLoss(self.device)
@@ -74,7 +75,7 @@ class Trainer:
         self.mse = torch.nn.L1Loss()
         self.cri = torch.nn.MSELoss()
         self.real_label = torch.ones([batch, 1, 256, 256]).to(self.device)
-        self.real_label_val = torch.ones([1, 1, 256, 256]).to(self.device)
+        self.real_label_val = torch.ones([batch, 1, 256, 256]).to(self.device)
         self.fake_label = torch.zeros([batch, 1, 256, 256]).to(self.device)
 
     @staticmethod
@@ -192,12 +193,12 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Training")
     parser.add_argument("--device", default="cuda", type=str)
-    parser.add_argument("--data_path", default=r"traindata", type=str)
-    parser.add_argument("--resume", default=True, type=bool)
+    parser.add_argument("--data_path", default=r"likexindata", type=str)
+    parser.add_argument("--resume", default=False, type=bool)
     parser.add_argument("--num_epochs", default=160, type=int)
-    parser.add_argument("--save_path", default=r"./qingzanglake00.pt", type=str)
-    parser.add_argument("--save_path1", default=r"./qingzanglake01.pt", type=str)
+    parser.add_argument("--save_path", default=r"./Ceshi00.pt", type=str)
+    parser.add_argument("--save_path1", default=r"./Cehshi01.pt", type=str)
     parser.add_argument("--interval", default=20, type=int)
-    parser.add_argument("--batch", default=16, type=int)
+    parser.add_argument("--batch", default=6, type=int)
     args1 = parser.parse_args()
     main(args1)
